@@ -10,7 +10,7 @@ export default function Home() {
   useEffect(() => {
     const supabase_client: SupabaseClient = createSupabaseClient();
     supabase_client.storage.listBuckets().then((result) =>
-      console.log(`Bucket list: \n ${result}`)
+      console.log(`Bucket list: \n`, result)
   )}, []);
   return (
     <div className={styles.page}>
