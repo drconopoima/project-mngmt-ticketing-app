@@ -1,13 +1,21 @@
 import { createServerClient } from '@supabase/ssr';
-import { SupabaseClient } from "@supabase/supabase-js";
-import { NextRequest, NextResponse } from "next/server";
+import { SupabaseClient } from '@supabase/supabase-js';
+import { NextRequest, NextResponse } from 'next/server';
+import { SerializeOptions } from 'cookie';
+
 interface Response {
     value: NextResponse<unknown>
 };
 interface SupabaseClientResponse {
     client: SupabaseClient,
-    res?: Response
+    res: Response
 }
+interface SerializeCookie {
+    name: string,
+    value: string,
+    options?: SerializeOptions
+}
+
 export function getSupabaseReqClient( req : NextRequest,  dbConfig: { dbUrl: string; dbKey: string } ): SupabaseClientResponse {
     let response: Response = {
         value: NextResponse.next( { request: req })
@@ -20,12 +28,12 @@ export function getSupabaseReqClient( req : NextRequest,  dbConfig: { dbUrl: str
                 getAll() {
                     return req.cookies.getAll();
                 },
-                setAll(cookiesToSet: any) {
-                    cookiesToSet.forEach((name: any, value: any, options: any) => {
+                setAll(cookiesToSet: SerializeCookie[]) {
+                    cookiesToSet.forEach(({ name, value, options }) => {
                         response.value.cookies.set(name, value, options);
                     });
                     response.value = NextResponse.next({ request: req, });
-                    cookiesToSet.foreach((name: any, value: any, options: any) => {
+                    cookiesToSet.forEach(( {name, value, options }) => {
                         response.value.cookies.set(name,value,options)
                     })
                 }
