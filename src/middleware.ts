@@ -1,9 +1,12 @@
 import { getSupabaseReqClient } from "@/supabase-utils/getSupabaseResClientMiddleware";
 import { NextRequest } from 'next/server'
-let dbConfig = {
+import { DbConnectionConfig } from '@/supabase-utils/interfaces';
+
+export const dbConfig: DbConnectionConfig = {
     dbUrl: <string>process.env.NEXT_PUBLIC_SUPABASE_URL?.toString(),
     dbKey: <string>process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.toString(),
 }
+
 export async function middleware(req: NextRequest) {
   const { client, res } = getSupabaseReqClient( req, dbConfig );
 
