@@ -1,20 +1,6 @@
 import { createServerClient } from '@supabase/ssr';
-import { SupabaseClient } from '@supabase/supabase-js';
 import { NextRequest, NextResponse } from 'next/server';
-import { SerializeOptions } from 'cookie';
-
-interface Response {
-    value: NextResponse<unknown>
-};
-interface SupabaseClientResponse {
-    client: SupabaseClient,
-    res: Response
-}
-interface SerializeCookie {
-    name: string,
-    value: string,
-    options?: SerializeOptions
-}
+import { Response, SupabaseClientResponse, SerializeCookie } from './interfaces';
 
 export function getSupabaseReqClient( req : NextRequest,  dbConfig: { dbUrl: string; dbKey: string } ): SupabaseClientResponse {
     let response: Response = {
