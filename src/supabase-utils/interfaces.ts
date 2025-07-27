@@ -2,6 +2,10 @@ import { NextResponse } from 'next/server';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { SerializeOptions } from 'cookie';
 
+export interface DbConnectionConfig {
+    dbUrl: string,
+    dbKey: string
+}
 export interface Response {
     value: NextResponse<unknown>
 };

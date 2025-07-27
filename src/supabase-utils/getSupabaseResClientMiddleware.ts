@@ -1,8 +1,8 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextRequest, NextResponse } from 'next/server';
-import { Response, SupabaseClientResponse, SerializeCookie } from './interfaces';
+import { Response, SupabaseClientResponse, SerializeCookie, DbConnectionConfig } from './interfaces';
 
-export function getSupabaseReqClient( req : NextRequest,  dbConfig: { dbUrl: string; dbKey: string } ): SupabaseClientResponse {
+export function getSupabaseReqClient( req : NextRequest, dbConfig: DbConnectionConfig ): SupabaseClientResponse {
     let response: Response = {
         value: NextResponse.next( { request: req })
     };
